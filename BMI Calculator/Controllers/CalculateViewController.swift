@@ -38,13 +38,15 @@ class CalculateViewController: UIViewController {
         let weight = weightSlider.value
         
         calculatorBrain.calculateBMI(height: height, weight: weight)
-        self.performSegue(withIdentifier: "goToResult", sender: self)
+        self.performSegue(withIdentifier: "goToResult", sender: self) // self. 안써도 됨
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToResult" { // when the goToResult segue gets triggered
             let destinationVC = segue.destination as! ResultViewController // narrow down the data type (by as! :Downcasting, !: Forced)
             destinationVC.bmiValue = calculatorBrain.getBMIValue()
+            destinationVC.bmiAdvice = calculatorBrain.getAdvice()
+            destinationVC.bmiColor = calculatorBrain.getColor()
         }
     }
 }
